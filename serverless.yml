@@ -1,0 +1,33 @@
+service: slsnew
+# app and org for use with dashboard.serverless.com
+app: slsnew
+org: ami01
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+custom:
+plugins:
+  - serverless-plugin-typescript
+  - serverless-iam-roles-per-function
+  - serverless-offline
+  - serverless-domain-manager
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  versionFunctions: false
+  deploymentBucket:
+    blockPublicAccess: true
+  timeout: 100
+  environment:
+    
+
+functions:
+  hello:
+    handler: src/handlers/hello.helloHandler
+    events:
+      - http:
+          path: /hello
+          method: get
